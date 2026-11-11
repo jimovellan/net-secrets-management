@@ -1,0 +1,18 @@
+{
+  "extension.displayName": ".NET Secrets Manager",
+  "command.openDashboard": "Open .NET secrets manager",
+  "command.browseSecrets": "Browse configured secrets",
+  "configuration.title": ".NET Secrets Manager",
+  "language.description": "Language used in the extension UI. Auto follows VS Code's display language.",
+  "language.auto": "Automatic",
+  "language.english": "English",
+  "language.chinese": "Chinese (Simplified)",
+  "language.hindi": "Hindi",
+  "language.spanish": "Spanish",
+  "language.french": "French",
+  "language.arabic": "Arabic",
+  "language.bengali": "Bengali",
+  "language.portuguese": "Portuguese (Brazil)",
+  "language.russian": "Russian",
+  "language.urdu": "Urdu"
+}

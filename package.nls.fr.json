@@ -1,0 +1,18 @@
+{
+  "extension.displayName": "Gestionnaire de secrets .NET",
+  "command.openDashboard": "Ouvrir le gestionnaire de secrets .NET",
+  "command.browseSecrets": "Parcourir les secrets configurés",
+  "configuration.title": "Gestionnaire de secrets .NET",
+  "language.description": "Langue de l’interface. Le mode automatique suit la langue d’affichage de VS Code.",
+  "language.auto": "Automatique",
+  "language.english": "Anglais",
+  "language.chinese": "Chinois simplifié",
+  "language.hindi": "Hindi",
+  "language.spanish": "Espagnol",
+  "language.french": "Français",
+  "language.arabic": "Arabe",
+  "language.bengali": "Bengali",
+  "language.portuguese": "Portugais (Brésil)",
+  "language.russian": "Russe",
+  "language.urdu": "Ourdou"
+}

@@ -1,0 +1,18 @@
+{
+  "extension.displayName": ".NET সিক্রেট ম্যানেজার",
+  "command.openDashboard": ".NET সিক্রেট ম্যানেজার খুলুন",
+  "command.browseSecrets": "কনফিগার করা সিক্রেট দেখুন",
+  "configuration.title": ".NET সিক্রেট ম্যানেজার",
+  "language.description": "এক্সটেনশন ইন্টারফেসের ভাষা। স্বয়ংক্রিয় মোড VS Code-এর প্রদর্শন ভাষা ব্যবহার করে।",
+  "language.auto": "স্বয়ংক্রিয়",
+  "language.english": "ইংরেজি",
+  "language.chinese": "চীনা (সরলীকৃত)",
+  "language.hindi": "হিন্দি",
+  "language.spanish": "স্প্যানিশ",
+  "language.french": "ফরাসি",
+  "language.arabic": "আরবি",
+  "language.bengali": "বাংলা",
+  "language.portuguese": "পর্তুগিজ (ব্রাজিল)",
+  "language.russian": "রুশ",
+  "language.urdu": "উর্দু"
+}

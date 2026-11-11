@@ -1,0 +1,18 @@
+{
+  "extension.displayName": "Менеджер секретов .NET",
+  "command.openDashboard": "Открыть менеджер секретов .NET",
+  "command.browseSecrets": "Просмотреть настроенные секреты",
+  "configuration.title": "Менеджер секретов .NET",
+  "language.description": "Язык интерфейса расширения. Автоматический режим использует язык интерфейса VS Code.",
+  "language.auto": "Автоматически",
+  "language.english": "Английский",
+  "language.chinese": "Китайский (упрощённый)",
+  "language.hindi": "Хинди",
+  "language.spanish": "Испанский",
+  "language.french": "Французский",
+  "language.arabic": "Арабский",
+  "language.bengali": "Бенгальский",
+  "language.portuguese": "Португальский (Бразилия)",
+  "language.russian": "Русский",
+  "language.urdu": "Урду"
+}

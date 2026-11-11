@@ -1,0 +1,18 @@
+{
+  "extension.displayName": "مدير أسرار .NET",
+  "command.openDashboard": "فتح مدير أسرار .NET",
+  "command.browseSecrets": "استعراض الأسرار المُعدّة",
+  "configuration.title": "مدير أسرار .NET",
+  "language.description": "لغة واجهة الإضافة. يتبع الوضع التلقائي لغة العرض في VS Code.",
+  "language.auto": "تلقائي",
+  "language.english": "الإنجليزية",
+  "language.chinese": "الصينية المبسطة",
+  "language.hindi": "الهندية",
+  "language.spanish": "الإسبانية",
+  "language.french": "الفرنسية",
+  "language.arabic": "العربية",
+  "language.bengali": "البنغالية",
+  "language.portuguese": "البرتغالية (البرازيل)",
+  "language.russian": "الروسية",
+  "language.urdu": "الأردية"
+}

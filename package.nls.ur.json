@@ -1,0 +1,18 @@
+{
+  "extension.displayName": ".NET سیکرٹ مینیجر",
+  "command.openDashboard": ".NET سیکرٹ مینیجر کھولیں",
+  "command.browseSecrets": "ترتیب شدہ سیکرٹس دیکھیں",
+  "configuration.title": ".NET سیکرٹ مینیجر",
+  "language.description": "ایکسٹینشن انٹرفیس کی زبان۔ خودکار موڈ VS Code کی ڈسپلے زبان استعمال کرتا ہے۔",
+  "language.auto": "خودکار",
+  "language.english": "انگریزی",
+  "language.chinese": "چینی (آسان)",
+  "language.hindi": "ہندی",
+  "language.spanish": "ہسپانوی",
+  "language.french": "فرانسیسی",
+  "language.arabic": "عربی",
+  "language.bengali": "بنگالی",
+  "language.portuguese": "پرتگالی (برازیل)",
+  "language.russian": "روسی",
+  "language.urdu": "اردو"
+}

@@ -1,0 +1,18 @@
+{
+  "extension.displayName": ".NET सीक्रेट मैनेजर",
+  "command.openDashboard": ".NET सीक्रेट मैनेजर खोलें",
+  "command.browseSecrets": "कॉन्फ़िगर किए गए सीक्रेट देखें",
+  "configuration.title": ".NET सीक्रेट मैनेजर",
+  "language.description": "एक्सटेंशन इंटरफ़ेस की भाषा। ऑटो VS Code की प्रदर्शन भाषा का उपयोग करता है।",
+  "language.auto": "स्वचालित",
+  "language.english": "अंग्रेज़ी",
+  "language.chinese": "चीनी (सरलीकृत)",
+  "language.hindi": "हिंदी",
+  "language.spanish": "स्पैनिश",
+  "language.french": "फ़्रेंच",
+  "language.arabic": "अरबी",
+  "language.bengali": "बंगाली",
+  "language.portuguese": "पुर्तगाली (ब्राज़ील)",
+  "language.russian": "रूसी",
+  "language.urdu": "उर्दू"
+}

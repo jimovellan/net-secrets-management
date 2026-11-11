@@ -1,0 +1,18 @@
+{
+  "extension.displayName": ".NET 密钥管理器",
+  "command.openDashboard": "打开 .NET 密钥管理器",
+  "command.browseSecrets": "浏览已配置的密钥",
+  "configuration.title": ".NET 密钥管理器",
+  "language.description": "扩展界面使用的语言。自动模式将使用 VS Code 显示语言。",
+  "language.auto": "自动",
+  "language.english": "英语",
+  "language.chinese": "简体中文",
+  "language.hindi": "印地语",
+  "language.spanish": "西班牙语",
+  "language.french": "法语",
+  "language.arabic": "阿拉伯语",
+  "language.bengali": "孟加拉语",
+  "language.portuguese": "葡萄牙语（巴西）",
+  "language.russian": "俄语",
+  "language.urdu": "乌尔都语"
+}
