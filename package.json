@@ -3,7 +3,7 @@
   "displayName": "%extension.displayName%",
   "publisher": "dotnet-secrets-manager",
   "description": "Manage .NET User Secrets for your projects from VS Code.",
-  "version": "0.0.12",
+  "version": "1.0.1",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",

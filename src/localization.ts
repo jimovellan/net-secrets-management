@@ -545,7 +545,20 @@ const browserEnglish = {
     renameProject: 'Rename',
     renameProjectPrompt: 'New name for project {id}',
     projectNameUpdateFailed: 'Could not update the project name.',
-    projectNameRequired: 'The project name cannot be empty.'
+    projectNameRequired: 'The project name cannot be empty.',
+    deleteEnvironment: 'Delete',
+    confirmDeleteEnvironment: 'Delete environment "{env}"? Its secrets file will be permanently removed.',
+    cannotDeleteActiveEnvironment: '"{env}" is the active environment and cannot be deleted. Activate another environment first.',
+    cannotDeleteLastEnvironment: 'The last environment of a project cannot be deleted.',
+    environmentDeleted: 'Environment "{env}" deleted.',
+    environmentDeleteFailed: 'Could not delete the environment file.',
+    copyJson: 'Copy JSON',
+    copyValue: 'Copy value',
+    copied: 'Copied',
+    showValues: 'Show values',
+    hideValues: 'Hide values',
+    showValue: 'Show value',
+    hideValue: 'Hide value'
 } as const;
 
 const browserTranslations: Record<Language, BrowserMessages> = {
@@ -566,7 +579,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: '重命名',
         renameProjectPrompt: '项目 {id} 的新名称',
         projectNameUpdateFailed: '无法更新项目名称。',
-        projectNameRequired: '项目名称不能为空。'
+        projectNameRequired: '项目名称不能为空。',
+        deleteEnvironment: '删除',
+        confirmDeleteEnvironment: '要删除环境“{env}”吗？其密钥文件将被永久删除。',
+        cannotDeleteActiveEnvironment: '“{env}”是当前活动环境，无法删除。请先激活其他环境。',
+        cannotDeleteLastEnvironment: '无法删除项目的最后一个环境。',
+        environmentDeleted: '已删除环境“{env}”。',
+        environmentDeleteFailed: '无法删除环境文件。',
+        copyJson: '复制 JSON',
+        copyValue: '复制值',
+        copied: '已复制',
+        showValues: '显示值',
+        hideValues: '隐藏值',
+        showValue: '显示此值',
+        hideValue: '隐藏此值'
     },
     hi: {
         browseSecretsTitle: 'कॉन्फ़िगर किए गए सीक्रेट देखें',
@@ -584,7 +610,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'नाम बदलें',
         renameProjectPrompt: 'प्रोजेक्ट {id} के लिए नया नाम',
         projectNameUpdateFailed: 'प्रोजेक्ट का नाम अपडेट नहीं किया जा सका।',
-        projectNameRequired: 'प्रोजेक्ट का नाम खाली नहीं हो सकता।'
+        projectNameRequired: 'प्रोजेक्ट का नाम खाली नहीं हो सकता।',
+        deleteEnvironment: 'हटाएं',
+        confirmDeleteEnvironment: 'एनवायरनमेंट "{env}" हटाएं? इसकी सीक्रेट फ़ाइल स्थायी रूप से हटा दी जाएगी।',
+        cannotDeleteActiveEnvironment: '"{env}" सक्रिय एनवायरनमेंट है और हटाया नहीं जा सकता। पहले कोई दूसरा एनवायरनमेंट सक्रिय करें।',
+        cannotDeleteLastEnvironment: 'प्रोजेक्ट का अंतिम एनवायरनमेंट हटाया नहीं जा सकता।',
+        environmentDeleted: 'एनवायरनमेंट "{env}" हटा दिया गया।',
+        environmentDeleteFailed: 'एनवायरनमेंट फ़ाइल हटाई नहीं जा सकी।',
+        copyJson: 'JSON कॉपी करें',
+        copyValue: 'मान कॉपी करें',
+        copied: 'कॉपी किया गया',
+        showValues: 'मान दिखाएं',
+        hideValues: 'मान छिपाएं',
+        showValue: 'मान दिखाएं',
+        hideValue: 'मान छिपाएं'
     },
     es: {
         browseSecretsTitle: 'Explorar secretos configurados',
@@ -602,7 +641,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'Renombrar',
         renameProjectPrompt: 'Nuevo nombre para el proyecto {id}',
         projectNameUpdateFailed: 'No se pudo actualizar el nombre del proyecto.',
-        projectNameRequired: 'El nombre del proyecto no puede estar vacío.'
+        projectNameRequired: 'El nombre del proyecto no puede estar vacío.',
+        deleteEnvironment: 'Eliminar',
+        confirmDeleteEnvironment: '¿Eliminar el entorno "{env}"? Su archivo de secretos se borrará de forma permanente.',
+        cannotDeleteActiveEnvironment: '"{env}" es el entorno activo y no se puede eliminar. Activa otro entorno primero.',
+        cannotDeleteLastEnvironment: 'No se puede eliminar el último entorno de un proyecto.',
+        environmentDeleted: 'Entorno "{env}" eliminado.',
+        environmentDeleteFailed: 'No se pudo eliminar el archivo del entorno.',
+        copyJson: 'Copiar JSON',
+        copyValue: 'Copiar valor',
+        copied: 'Copiado',
+        showValues: 'Mostrar valores',
+        hideValues: 'Ocultar valores',
+        showValue: 'Mostrar valor',
+        hideValue: 'Ocultar valor'
     },
     fr: {
         browseSecretsTitle: 'Parcourir les secrets configurés',
@@ -620,7 +672,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'Renommer',
         renameProjectPrompt: 'Nouveau nom pour le projet {id}',
         projectNameUpdateFailed: 'Impossible de mettre à jour le nom du projet.',
-        projectNameRequired: 'Le nom du projet ne peut pas être vide.'
+        projectNameRequired: 'Le nom du projet ne peut pas être vide.',
+        deleteEnvironment: 'Supprimer',
+        confirmDeleteEnvironment: 'Supprimer l\'environnement « {env} » ? Son fichier de secrets sera définitivement supprimé.',
+        cannotDeleteActiveEnvironment: '« {env} » est l\'environnement actif et ne peut pas être supprimé. Activez d\'abord un autre environnement.',
+        cannotDeleteLastEnvironment: 'Le dernier environnement d\'un projet ne peut pas être supprimé.',
+        environmentDeleted: 'Environnement « {env} » supprimé.',
+        environmentDeleteFailed: 'Impossible de supprimer le fichier de l\'environnement.',
+        copyJson: 'Copier le JSON',
+        copyValue: 'Copier la valeur',
+        copied: 'Copié',
+        showValues: 'Révéler les valeurs',
+        hideValues: 'Masquer les valeurs',
+        showValue: 'Révéler la valeur',
+        hideValue: 'Masquer la valeur'
     },
     ar: {
         browseSecretsTitle: 'استعراض الأسرار المُعدّة',
@@ -638,7 +703,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'إعادة التسمية',
         renameProjectPrompt: 'الاسم الجديد للمشروع {id}',
         projectNameUpdateFailed: 'تعذر تحديث اسم المشروع.',
-        projectNameRequired: 'لا يمكن أن يكون اسم المشروع فارغًا.'
+        projectNameRequired: 'لا يمكن أن يكون اسم المشروع فارغًا.',
+        deleteEnvironment: 'حذف',
+        confirmDeleteEnvironment: 'هل تريد حذف البيئة "{env}"؟ سيتم حذف ملف الأسرار الخاص بها نهائيًا.',
+        cannotDeleteActiveEnvironment: '"{env}" هي البيئة النشطة ولا يمكن حذفها. فعّل بيئة أخرى أولًا.',
+        cannotDeleteLastEnvironment: 'لا يمكن حذف آخر بيئة في المشروع.',
+        environmentDeleted: 'تم حذف البيئة "{env}".',
+        environmentDeleteFailed: 'تعذر حذف ملف البيئة.',
+        copyJson: 'نسخ JSON',
+        copyValue: 'نسخ القيمة',
+        copied: 'تم النسخ',
+        showValues: 'إظهار القيم',
+        hideValues: 'إخفاء القيم',
+        showValue: 'إظهار القيمة',
+        hideValue: 'إخفاء القيمة'
     },
     bn: {
         browseSecretsTitle: 'কনফিগার করা সিক্রেট দেখুন',
@@ -656,7 +734,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'নাম পরিবর্তন',
         renameProjectPrompt: 'প্রকল্প {id}-এর নতুন নাম',
         projectNameUpdateFailed: 'প্রকল্পের নাম আপডেট করা যায়নি।',
-        projectNameRequired: 'প্রকল্পের নাম খালি রাখা যাবে না।'
+        projectNameRequired: 'প্রকল্পের নাম খালি রাখা যাবে না।',
+        deleteEnvironment: 'মুছুন',
+        confirmDeleteEnvironment: 'এনভায়রনমেন্ট "{env}" মুছবেন? এর সিক্রেট ফাইল স্থায়ীভাবে মুছে যাবে।',
+        cannotDeleteActiveEnvironment: '"{env}" সক্রিয় এনভায়রনমেন্ট, তাই মোছা যাবে না। আগে অন্য একটি এনভায়রনমেন্ট সক্রিয় করুন।',
+        cannotDeleteLastEnvironment: 'প্রকল্পের শেষ এনভায়রনমেন্ট মোছা যাবে না।',
+        environmentDeleted: 'এনভায়রনমেন্ট "{env}" মুছে ফেলা হয়েছে।',
+        environmentDeleteFailed: 'এনভায়রনমেন্ট ফাইল মোছা যায়নি।',
+        copyJson: 'JSON কপি করুন',
+        copyValue: 'মান কপি করুন',
+        copied: 'কপি হয়েছে',
+        showValues: 'মান দেখান',
+        hideValues: 'মান লুকান',
+        showValue: 'মান দেখান',
+        hideValue: 'মান লুকান'
     },
     'pt-BR': {
         browseSecretsTitle: 'Explorar segredos configurados',
@@ -674,7 +765,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'Renomear',
         renameProjectPrompt: 'Novo nome para o projeto {id}',
         projectNameUpdateFailed: 'Não foi possível atualizar o nome do projeto.',
-        projectNameRequired: 'O nome do projeto não pode ficar vazio.'
+        projectNameRequired: 'O nome do projeto não pode ficar vazio.',
+        deleteEnvironment: 'Excluir',
+        confirmDeleteEnvironment: 'Excluir o ambiente "{env}"? O arquivo de segredos será removido permanentemente.',
+        cannotDeleteActiveEnvironment: '"{env}" é o ambiente ativo e não pode ser excluído. Ative outro ambiente primeiro.',
+        cannotDeleteLastEnvironment: 'O último ambiente de um projeto não pode ser excluído.',
+        environmentDeleted: 'Ambiente "{env}" excluído.',
+        environmentDeleteFailed: 'Não foi possível excluir o arquivo do ambiente.',
+        copyJson: 'Copiar JSON',
+        copyValue: 'Copiar valor',
+        copied: 'Copiado',
+        showValues: 'Mostrar valores',
+        hideValues: 'Ocultar valores',
+        showValue: 'Mostrar valor',
+        hideValue: 'Ocultar valor'
     },
     ru: {
         browseSecretsTitle: 'Просмотреть настроенные секреты',
@@ -692,7 +796,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'Переименовать',
         renameProjectPrompt: 'Новое имя для проекта {id}',
         projectNameUpdateFailed: 'Не удалось изменить имя проекта.',
-        projectNameRequired: 'Имя проекта не может быть пустым.'
+        projectNameRequired: 'Имя проекта не может быть пустым.',
+        deleteEnvironment: 'Удалить',
+        confirmDeleteEnvironment: 'Удалить среду «{env}»? Файл её секретов будет удалён безвозвратно.',
+        cannotDeleteActiveEnvironment: '«{env}» — активная среда, её нельзя удалить. Сначала активируйте другую среду.',
+        cannotDeleteLastEnvironment: 'Нельзя удалить последнюю среду проекта.',
+        environmentDeleted: 'Среда «{env}» удалена.',
+        environmentDeleteFailed: 'Не удалось удалить файл среды.',
+        copyJson: 'Копировать JSON',
+        copyValue: 'Копировать значение',
+        copied: 'Скопировано',
+        showValues: 'Раскрыть значения',
+        hideValues: 'Скрыть значения',
+        showValue: 'Раскрыть значение',
+        hideValue: 'Скрыть значение'
     },
     ur: {
         browseSecretsTitle: 'ترتیب شدہ سیکرٹس دیکھیں',
@@ -710,7 +827,20 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         renameProject: 'نام تبدیل کریں',
         renameProjectPrompt: 'پروجیکٹ {id} کے لیے نیا نام',
         projectNameUpdateFailed: 'پروجیکٹ کا نام اپ ڈیٹ نہیں ہو سکا۔',
-        projectNameRequired: 'پروجیکٹ کا نام خالی نہیں ہو سکتا۔'
+        projectNameRequired: 'پروجیکٹ کا نام خالی نہیں ہو سکتا۔',
+        deleteEnvironment: 'حذف کریں',
+        confirmDeleteEnvironment: 'ماحول "{env}" حذف کریں؟ اس کی سیکرٹ فائل مستقل طور پر حذف ہو جائے گی۔',
+        cannotDeleteActiveEnvironment: '"{env}" فعال ماحول ہے اور حذف نہیں کیا جا سکتا۔ پہلے کوئی دوسرا ماحول فعال کریں۔',
+        cannotDeleteLastEnvironment: 'پروجیکٹ کا آخری ماحول حذف نہیں کیا جا سکتا۔',
+        environmentDeleted: 'ماحول "{env}" حذف ہو گیا۔',
+        environmentDeleteFailed: 'ماحول کی فائل حذف نہیں ہو سکی۔',
+        copyJson: 'JSON کاپی کریں',
+        copyValue: 'قدر کاپی کریں',
+        copied: 'کاپی ہو گیا',
+        showValues: 'اقدار دکھائیں',
+        hideValues: 'اقدار چھپائیں',
+        showValue: 'قدر دکھائیں',
+        hideValue: 'قدر چھپائیں'
     }
 };
 

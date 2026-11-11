@@ -26,7 +26,8 @@ Extensión de VS Code para mantener varios **entornos** (develop, qa, staging…
 - **Varios entornos por proyecto**: cada uno se guarda como `secrets.<entorno>.json` junto al `secrets.json` que usa .NET.
 - **Activación con un clic**: el entorno activo se copia a `secrets.json`, así que `dotnet run` lo usa sin cambiar código.
 - **Editor JSON integrado** con validación, protección contra la pérdida de cambios sin guardar y creación de entornos vacíos o copiados de otro.
-- **Explorador de solo lectura** de todas las aplicaciones con User Secrets configurados en la máquina.
+- **Eliminación de entornos** con confirmación. El entorno activo y el último entorno de un proyecto están protegidos.
+- **Explorador de secretos configurados** de todas las aplicaciones con User Secrets en la máquina: renombra proyectos que solo muestran su identificador, activa o elimina entornos y consulta los valores como JSON con colores, ocultos por defecto, con botones para copiar cada valor o el JSON completo.
 - **10 idiomas de interfaz**: English, 简体中文, हिन्दी, Español, Français, العربية, বাংলা, Português (Brasil), Русский y اردو (con diseño de derecha a izquierda).
 
 ## Capturas
@@ -47,12 +48,28 @@ Extensión de VS Code para mantener varios **entornos** (develop, qa, staging…
   <img alt="Editor de secretos" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
-**Explorador de secretos configurados:** se abre desde la barra de estado y lista todas las aplicaciones de la máquina.
+**Explorador de secretos configurados:** se abre desde la barra de estado y lista todas las aplicaciones de la máquina. Los proyectos que solo muestran su identificador se pueden renombrar.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
   <img alt="Explorador de secretos configurados" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+</picture>
+
+**Entornos de una aplicación:** activa o elimina cualquier entorno sin abrir su proyecto.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+  <img alt="Entornos en el explorador" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+</picture>
+
+**Vista de secretos:** JSON con colores y valores ocultos por defecto; muestra o copia cada valor, o copia el JSON completo.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
+  <img alt="Vista de secretos" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
 </picture>
 
 > Las capturas muestran la interfaz en inglés. Cambia el idioma con el ajuste `net-secrets-manager.language`.
@@ -75,7 +92,7 @@ dotnet user-secrets init
 4. Pulsa **Ver** para editar el JSON y **Guardar cambios** para guardarlo.
 5. Pulsa **Fijar como activo** para que .NET use ese entorno.
 
-Para explorar los secretos de todas las aplicaciones, pulsa **🔑 Gestor de secretos y entornos .NET** en la barra de estado o ejecuta **Explorar secretos configurados**.
+Para trabajar con todas las aplicaciones, pulsa **🔑 Gestor de secretos y entornos .NET** en la barra de estado o ejecuta **Explorar secretos configurados**. Desde ahí puedes **Renombrar** un proyecto, **Fijar como activo** o **Eliminar** un entorno, y abrir **Ver valores** para mostrar y copiar los secretos.
 
 ## Ejemplo
 
@@ -150,7 +167,7 @@ Al activar `staging`, su contenido pasa a `secrets.json` y el siguiente `dotnet 
 | Comando | Dónde | Qué hace |
 | --- | --- | --- |
 | **Abrir gestor de secretos .NET** | Menú contextual del `.csproj`, paleta de comandos | Abre el gestor de entornos de ese proyecto. |
-| **Explorar secretos configurados** | Barra de estado, paleta de comandos | Lista de solo lectura de aplicaciones, entornos y valores. |
+| **Explorar secretos configurados** | Barra de estado, paleta de comandos | Lista aplicaciones y entornos: renombra proyectos, activa o elimina entornos, y muestra o copia valores. |
 
 ## Funcionamiento
 
@@ -159,6 +176,8 @@ Al activar `staging`, su contenido pasa a `secrets.json` y el siguiente `dotnet 
   - Linux y macOS: `~/.microsoft/usersecrets/<UserSecretsId>/`
 - **Sincronización**: al guardar el entorno activo también se actualiza `secrets.json`. Si editas `secrets.json` directamente en VS Code y lo guardas, los cambios se copian al entorno activo.
 - **Nombres**: los entornos solo admiten letras, números, guiones y guiones bajos, y se guardan en minúsculas.
+- **Eliminación**: al eliminar un entorno se borra su `secrets.<entorno>.json` tras confirmarlo. No se puede eliminar el entorno activo (activa otro primero) ni el último entorno de un proyecto.
+- **Nombre visible**: renombrar un proyecto solo guarda `projectName` en `.active-env`; los archivos de secretos no se modifican.
 - **Migración**: si hay archivos `.active-env`, `secrets.json` o `secrets.*.json` en la carpeta del proyecto, se mueven al almacén de User Secrets. Nunca se sobrescriben archivos existentes; en ese caso se muestra una advertencia.
 
 ## Seguridad

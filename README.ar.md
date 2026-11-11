@@ -26,7 +26,8 @@
 - **عدة بيئات لكل مشروع**: تُحفظ كل بيئة في الملف `secrets.<البيئة>.json` بجوار `secrets.json` الذي يستخدمه .NET.
 - **تفعيل بنقرة واحدة**: تُنسخ البيئة النشطة إلى `secrets.json`، فيستخدمها `dotnet run` دون أي تعديل في الشيفرة.
 - **محرر JSON مدمج** مع التحقق من الصحة، والحماية من فقدان التغييرات غير المحفوظة، وإنشاء بيئات فارغة أو منسوخة من بيئة أخرى.
-- **مستعرض للقراءة فقط** لجميع التطبيقات التي لديها User Secrets على الجهاز.
+- **حذف البيئات** مع طلب التأكيد. البيئة النشطة وآخر بيئة في المشروع محميتان.
+- **مستعرض الأسرار المهيأة** لجميع التطبيقات التي لديها User Secrets على الجهاز: أعد تسمية المشاريع التي تعرض المعرّف فقط، وفعّل البيئات أو احذفها، واعرض القيم بصيغة JSON ملونة ومخفية افتراضيًا، مع أزرار لنسخ كل قيمة أو ملف JSON كاملًا.
 - **10 لغات للواجهة**: English و简体中文 وहिन्दी وEspañol وFrançais والعربية وবাংলা وPortuguês (Brasil) وРусский واردو (مع تخطيط من اليمين إلى اليسار).
 
 ## لقطات الشاشة
@@ -47,12 +48,28 @@
   <img alt="محرر الأسرار" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
-**مستعرض الأسرار المُعدّة:** يُفتح من شريط الحالة ويعرض جميع التطبيقات على الجهاز.
+**مستعرض الأسرار المُعدّة:** يُفتح من شريط الحالة ويعرض جميع التطبيقات على الجهاز. يمكن إعادة تسمية المشاريع التي تعرض المعرّف فقط.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
   <img alt="مستعرض الأسرار المُعدّة" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+</picture>
+
+**بيئات التطبيق:** فعّل أي بيئة أو احذفها دون فتح مشروعها.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+  <img alt="البيئات في المستعرض" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+</picture>
+
+**عرض الأسرار:** JSON ملون والقيم مخفية افتراضيًا؛ أظهر كل قيمة أو انسخها، أو انسخ JSON كاملًا.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
+  <img alt="عرض الأسرار" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
 </picture>
 
 > تعرض اللقطات الواجهة باللغة الإنجليزية. غيّر اللغة من الإعداد `net-secrets-manager.language`.
@@ -75,7 +92,7 @@ dotnet user-secrets init
 4. انقر **عرض** لتعديل JSON ثم **حفظ التغييرات** لحفظه.
 5. انقر **تعيين كنشطة** ليستخدم .NET هذه البيئة.
 
-لاستعراض أسرار جميع التطبيقات، انقر **🔑 مدير أسرار وبيئات .NET** في شريط الحالة أو شغّل **استعراض الأسرار المُعدّة**.
+للعمل مع جميع التطبيقات، انقر **🔑 مدير أسرار وبيئات .NET** في شريط الحالة أو شغّل **استعراض الأسرار المُعدّة**. يمكنك من هناك **إعادة التسمية** لمشروع، أو **تعيين كنشطة** أو **حذف** بيئة، وفتح **عرض القيم** لإظهار الأسرار ونسخها.
 
 ## مثال
 
@@ -150,7 +167,7 @@ var issuer = builder.Configuration["Jwt:Issuer"];
 | الأمر | المكان | الوظيفة |
 | --- | --- | --- |
 | **فتح مدير أسرار .NET** | قائمة `.csproj` السياقية، لوحة الأوامر | يفتح مدير البيئات لذلك المشروع. |
-| **استعراض الأسرار المُعدّة** | شريط الحالة، لوحة الأوامر | قائمة للقراءة فقط بالتطبيقات والبيئات والقيم. |
+| **استعراض الأسرار المُعدّة** | شريط الحالة، لوحة الأوامر | يعرض التطبيقات والبيئات: إعادة تسمية المشاريع، وتفعيل البيئات أو حذفها، وعرض القيم أو نسخها. |
 
 ## آلية العمل
 
@@ -159,6 +176,8 @@ var issuer = builder.Configuration["Jwt:Issuer"];
   - Linux وmacOS: `~/.microsoft/usersecrets/<UserSecretsId>/`
 - **المزامنة**: عند حفظ البيئة النشطة يُحدَّث `secrets.json` أيضًا. وإذا عدّلت `secrets.json` مباشرة في VS Code وحفظته، تُنسخ التغييرات إلى البيئة النشطة.
 - **الأسماء**: لا تقبل أسماء البيئات إلا الأحرف والأرقام والشرطات والشرطات السفلية، وتُحفظ بأحرف صغيرة.
+- **الحذف**: حذف بيئة يزيل ملف `secrets.<البيئة>.json` الخاص بها بعد التأكيد. لا يمكن حذف البيئة النشطة (فعّل بيئة أخرى أولًا)، ولا آخر بيئة في المشروع.
+- **الاسم المعروض**: إعادة تسمية المشروع تحفظ `projectName` في `.active-env` فقط، ولا تُعدَّل ملفات الأسرار.
 - **الترحيل**: إذا وُجدت ملفات `.active-env` أو `secrets.json` أو `secrets.*.json` في مجلد المشروع، فإنها تُنقل إلى مخزن User Secrets. لا تُستبدل الملفات الموجودة أبدًا، وبدلًا من ذلك يظهر تحذير.
 
 ## الأمان

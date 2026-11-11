@@ -64,20 +64,48 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     // Lee los valores únicamente después de seleccionar una aplicación y un entorno.
-    function getEnvironmentValues(store: ConfiguredSecretsStore, env: string): string {
+    function getEnvironmentValues(store: ConfiguredSecretsStore, env: string): { text: string; data?: unknown } {
         const environmentFile = path.join(store.directory, `secrets.${env}.json`);
         const secretsFile = !fs.existsSync(environmentFile) && env === 'develop'
             ? path.join(store.directory, 'secrets.json')
             : environmentFile;
         const content = fs.readFileSync(secretsFile, 'utf8');
         try {
-            return JSON.stringify(parseSecretsJson(content), null, 2);
+            const data = parseSecretsJson(content);
+            return { text: JSON.stringify(data, null, 2), data };
         } catch (e) {
-            return content;
+            return { text: content };
         }
     }
 
     // Abre una página con navegación visible: aplicaciones, entornos y valores.
+    // Activa un entorno de cualquier aplicación: copia sus secretos a secrets.json y lo registra en .active-env.
+    function activateStoreEnvironment(store: ConfiguredSecretsStore, env: string): boolean {
+        const environmentFile = path.join(store.directory, `secrets.${env}.json`);
+        if (!isValidEnvironmentName(env) || !store.environments.includes(env) || !fs.existsSync(environmentFile)) {
+            vscode.window.showErrorMessage(t('invalidEnvironment'));
+            return false;
+        }
+        const configFile = path.join(store.directory, '.active-env');
+        let config: Record<string, unknown> = {};
+        try {
+            const existing = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+            if (existing && typeof existing === 'object' && !Array.isArray(existing)) {
+                config = existing;
+            }
+        } catch (e) {}
+        config.env = env;
+        try {
+            fs.copyFileSync(environmentFile, path.join(store.directory, 'secrets.json'));
+            fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
+        } catch (e) {
+            vscode.window.showErrorMessage(t('invalidEnvironment'));
+            return false;
+        }
+        vscode.window.showInformationMessage(t('environmentSwitched', { env: env.toUpperCase() }));
+        return true;
+    }
+
     // Guarda el nombre visible de una aplicación conservando el resto de su configuración.
     function renameConfiguredStore(store: ConfiguredSecretsStore, newName: string): boolean {
         const configFile = path.join(store.directory, '.active-env');
@@ -93,6 +121,44 @@ export function activate(context: vscode.ExtensionContext) {
             fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
             return true;
         } catch (e) {
+            return false;
+        }
+    }
+
+    // Borra el archivo de un entorno tras confirmarlo; nunca el activo ni el último disponible.
+    async function deleteEnvironmentFile(
+        directory: string,
+        env: string,
+        activeEnv: string,
+        environments: string[]
+    ): Promise<boolean> {
+        if (!isValidEnvironmentName(env) || !environments.includes(env)) {
+            vscode.window.showErrorMessage(t('invalidEnvironment'));
+            return false;
+        }
+        if (env === activeEnv) {
+            vscode.window.showWarningMessage(t('cannotDeleteActiveEnvironment', { env: env.toUpperCase() }));
+            return false;
+        }
+        if (environments.length <= 1) {
+            vscode.window.showWarningMessage(t('cannotDeleteLastEnvironment'));
+            return false;
+        }
+        const confirm = t('deleteEnvironment');
+        const choice = await vscode.window.showWarningMessage(
+            t('confirmDeleteEnvironment', { env: env.toUpperCase() }),
+            { modal: true },
+            confirm
+        );
+        if (choice !== confirm) {
+            return false;
+        }
+        try {
+            fs.unlinkSync(path.join(directory, `secrets.${env}.json`));
+            vscode.window.showInformationMessage(t('environmentDeleted', { env: env.toUpperCase() }));
+            return true;
+        } catch (e) {
+            vscode.window.showErrorMessage(t('environmentDeleteFailed'));
             return false;
         }
     }
@@ -122,12 +188,31 @@ export function activate(context: vscode.ExtensionContext) {
                 .name { font-weight: 600; }
                 .meta, .empty { color: var(--vscode-descriptionForeground); }
                 .row button { width: auto; }
-                button { background: var(--vscode-button-background); color: var(--vscode-button-foreground); border: 0; border-radius: 3px; padding: 7px 12px; cursor: pointer; }
+                button { background: var(--vscode-button-background); color: var(--vscode-button-foreground); border: 0; border-radius: 3px; padding: 7px 12px; cursor: pointer; font-family: inherit; font-size: inherit; }
                 button:hover { background: var(--vscode-button-hoverBackground); }
                 .actions { display: flex; gap: 8px; flex-shrink: 0; }
                 button.secondary { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
                 button.secondary:hover { background: var(--vscode-button-secondaryHoverBackground); }
                 pre { padding: 16px; overflow: auto; white-space: pre-wrap; background: var(--vscode-textCodeBlock-background); font-family: var(--vscode-editor-font-family); }
+                .values-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+                .values-toolbar .meta { margin: 0; }
+                .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+                .toolbar-actions button { display: inline-flex; align-items: center; gap: 6px; }
+                .json-view { padding: 12px 0; border: 1px solid var(--vscode-panel-border); border-radius: 6px; background: var(--vscode-textCodeBlock-background); font-family: var(--vscode-editor-font-family); font-size: var(--vscode-editor-font-size); line-height: 1.7; overflow: auto; }
+                .json-line { padding-inline-end: 16px; white-space: pre-wrap; word-break: break-all; }
+                .json-line:hover, .json-line:focus-within { background: var(--vscode-list-hoverBackground); }
+                .json-key { color: var(--vscode-debugTokenExpression-name, #9cdcfe); }
+                .json-string { color: var(--vscode-debugTokenExpression-string, #ce9178); }
+                .json-number { color: var(--vscode-debugTokenExpression-number, #b5cea8); }
+                .json-boolean, .json-null { color: var(--vscode-debugTokenExpression-boolean, #569cd6); }
+                .json-punct { color: var(--vscode-descriptionForeground); }
+                .json-value.masked { color: var(--vscode-descriptionForeground); letter-spacing: 1px; }
+                .line-actions { display: inline-flex; gap: 2px; margin-inline-start: 10px; vertical-align: middle; opacity: 0; }
+                .json-line:hover .line-actions, .json-line:focus-within .line-actions { opacity: 1; }
+                @media (hover: none) { .line-actions { opacity: 1; } }
+                button.icon-button { background: transparent; color: var(--vscode-icon-foreground); padding: 3px; line-height: 0; width: auto; }
+                button.icon-button:hover { background: var(--vscode-toolbar-hoverBackground); }
+                button.icon-button.copied, .toolbar-actions button.copied { color: var(--vscode-testing-iconPassed); }
                 @media (max-width: 520px) { body { padding: 12px; } .row { align-items: stretch; flex-direction: column; } .actions { flex-direction: column; } .row button { width: 100%; } }
             </style></head>
             <body>
@@ -204,6 +289,22 @@ export function activate(context: vscode.ExtensionContext) {
                             name.className = 'name';
                             name.textContent = env.toUpperCase() + (env === project.activeEnv ? ' · ' + text.active : '');
                             row.appendChild(name);
+                            const actions = document.createElement('div');
+                            actions.className = 'actions';
+                            if (env !== project.activeEnv) {
+                                const activate = document.createElement('button');
+                                activate.className = 'secondary';
+                                activate.textContent = text.pinAsActive;
+                                activate.addEventListener('click', () => vscode.postMessage({ command: 'activateEnvironment', id: project.id, env }));
+                                actions.appendChild(activate);
+                            }
+                            if (env !== project.activeEnv && project.environments.length > 1) {
+                                const remove = document.createElement('button');
+                                remove.className = 'secondary';
+                                remove.textContent = text.deleteEnvironment;
+                                remove.addEventListener('click', () => vscode.postMessage({ command: 'deleteEnvironment', id: project.id, env }));
+                                actions.appendChild(remove);
+                            }
                             const button = document.createElement('button');
                             button.textContent = text.viewSecrets;
                             button.addEventListener('click', () => {
@@ -214,14 +315,15 @@ export function activate(context: vscode.ExtensionContext) {
                                 document.getElementById('content').appendChild(loading);
                                 vscode.postMessage({ command: 'selectEnvironment', id: project.id, env });
                             });
-                            row.appendChild(button);
+                            actions.appendChild(button);
+                            row.appendChild(actions);
                             list.appendChild(row);
                         });
                         const content = document.getElementById('content');
                         content.replaceChildren(list);
                     }
 
-                    function showValues(project, env, values) {
+                    function showValues(project, env, values, data) {
                         document.getElementById('pageTitle').textContent = text.secretsViewerTitle
                             .replace('{project}', project.name)
                             .replace('{env}', env.toUpperCase());
@@ -233,26 +335,209 @@ export function activate(context: vscode.ExtensionContext) {
                         breadcrumb.appendChild(back);
                         const content = document.getElementById('content');
                         content.replaceChildren();
+                        const toolbar = document.createElement('div');
+                        toolbar.className = 'values-toolbar';
                         const note = document.createElement('p');
                         note.className = 'meta';
                         note.textContent = text.secretsReadOnly;
-                        content.appendChild(note);
-                        const pre = document.createElement('pre');
-                        pre.textContent = values;
-                        content.appendChild(pre);
+                        toolbar.appendChild(note);
+                        const toolbarActions = document.createElement('div');
+                        toolbarActions.className = 'toolbar-actions';
+                        toolbar.appendChild(toolbarActions);
+                        content.appendChild(toolbar);
+
+                        const secrets = [];
+                        const hasData = data !== undefined && data !== null && typeof data === 'object';
+                        if (hasData) {
+                            const toggleAll = document.createElement('button');
+                            toggleAll.className = 'secondary';
+                            const refreshToggleAll = () => {
+                                const allVisible = secrets.length > 0 && secrets.every(secret => secret.revealed);
+                                toggleAll.innerHTML = allVisible ? ICONS.eyeClosed : ICONS.eye;
+                                toggleAll.appendChild(document.createTextNode(allVisible ? text.hideValues : text.showValues));
+                            };
+                            toggleAll.addEventListener('click', () => {
+                                const reveal = !secrets.every(secret => secret.revealed);
+                                secrets.forEach(secret => secret.setRevealed(reveal));
+                                refreshToggleAll();
+                            });
+                            const view = document.createElement('div');
+                            view.className = 'json-view';
+                            renderJson(view, data, secrets, refreshToggleAll);
+                            refreshToggleAll();
+                            if (secrets.length > 0) {
+                                toolbarActions.appendChild(toggleAll);
+                            }
+                            content.appendChild(view);
+                        } else {
+                            const pre = document.createElement('pre');
+                            pre.textContent = values;
+                            content.appendChild(pre);
+                        }
+
+                        const copyAll = document.createElement('button');
+                        const resetCopyAll = () => {
+                            copyAll.classList.remove('copied');
+                            copyAll.innerHTML = ICONS.copy;
+                            copyAll.appendChild(document.createTextNode(text.copyJson));
+                        };
+                        resetCopyAll();
+                        copyAll.addEventListener('click', () => {
+                            copyText(values);
+                            copyAll.classList.add('copied');
+                            copyAll.innerHTML = ICONS.check;
+                            copyAll.appendChild(document.createTextNode(text.copied));
+                            setTimeout(resetCopyAll, 1500);
+                        });
+                        toolbarActions.appendChild(copyAll);
+                    }
+
+                    const svg = path => '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="' + path + '"/></svg>';
+                    const ICONS = {
+                        copy: svg('M4 4V1.5l.5-.5h8l.5.5v10l-.5.5H11v2.5l-.5.5h-8l-.5-.5v-10l.5-.5H4zm1 0h5.5l.5.5V11h1V2H5v2zM3 5v9h7V5H3z'),
+                        check: svg('M13.65 3.65 6 11.29 2.35 7.65l-.7.7L6 12.71l8.35-8.36-.7-.7z'),
+                        eye: svg('M8 3C4.5 3 1.8 5.2 1 8c.8 2.8 3.5 5 7 5s6.2-2.2 7-5c-.8-2.8-3.5-5-7-5zm0 9c-2.8 0-5-1.7-5.9-4C3 5.7 5.2 4 8 4s5 1.7 5.9 4c-.9 2.3-3.1 4-5.9 4zm0-6.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm0 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z'),
+                        eyeClosed: svg('M1.6 1.6l12.8 12.8-.7.7-2.4-2.4c-1 .5-2.1.8-3.3.8-3.5 0-6.2-2.2-7-5 .4-1.4 1.3-2.7 2.5-3.6L.9 2.3l.7-.7zm2.6 3.3C3.3 5.6 2.6 6.7 2.1 8 3 10.3 5.2 12 8 12c.9 0 1.7-.2 2.5-.5L9.1 10.1A2.5 2.5 0 0 1 5.9 6.9L4.2 4.9zM8 4c2.8 0 5 1.7 5.9 4-.3.8-.8 1.6-1.4 2.2l.7.7c.8-.8 1.4-1.8 1.8-2.9-.8-2.8-3.5-5-7-5-.8 0-1.6.1-2.3.3l.8.8C6.9 4 7.4 4 8 4z')
+                    };
+                    const MASK = '••••••••';
+
+                    function copyText(value) {
+                        vscode.postMessage({ command: 'copyToClipboard', text: value });
+                    }
+
+                    function textSpan(className, value) {
+                        const element = document.createElement('span');
+                        element.className = className;
+                        element.textContent = value;
+                        return element;
+                    }
+
+                    function iconButton(icon, label, onClick) {
+                        const button = document.createElement('button');
+                        button.type = 'button';
+                        button.className = 'icon-button';
+                        button.innerHTML = icon;
+                        button.title = label;
+                        button.setAttribute('aria-label', label);
+                        button.addEventListener('click', onClick);
+                        return button;
+                    }
+
+                    // Pinta el JSON línea a línea con colores; los valores empiezan ocultos.
+                    function renderJson(container, root, secrets, onRevealChange) {
+                        function addLine(depth, parts) {
+                            const line = document.createElement('div');
+                            line.className = 'json-line';
+                            line.style.paddingInlineStart = 'calc(16px + ' + (depth * 2) + 'ch)';
+                            parts.forEach(part => line.appendChild(part));
+                            container.appendChild(line);
+                            return line;
+                        }
+
+                        function walk(value, depth, key, isLast) {
+                            const prefix = key === undefined
+                                ? []
+                                : [textSpan('json-key', JSON.stringify(key)), textSpan('json-punct', ': ')];
+                            const comma = isLast ? [] : [textSpan('json-punct', ',')];
+                            if (value !== null && typeof value === 'object') {
+                                const isArray = Array.isArray(value);
+                                const entries = isArray ? value.map((item, index) => [undefined, item]) : Object.entries(value);
+                                const open = isArray ? '[' : '{';
+                                const close = isArray ? ']' : '}';
+                                if (entries.length === 0) {
+                                    addLine(depth, [...prefix, textSpan('json-punct', open + close), ...comma]);
+                                    return;
+                                }
+                                addLine(depth, [...prefix, textSpan('json-punct', open)]);
+                                entries.forEach(([childKey, child], index) => walk(child, depth + 1, childKey, index === entries.length - 1));
+                                addLine(depth, [textSpan('json-punct', close), ...comma]);
+                                return;
+                            }
+
+                            const type = value === null ? 'null' : typeof value;
+                            const display = type === 'string' ? JSON.stringify(value) : String(value);
+                            const raw = type === 'string' ? value : String(value);
+                            const valueSpan = textSpan('json-value json-' + type, '');
+                            const secret = { revealed: false };
+                            const eye = iconButton(ICONS.eye, text.showValue, () => {
+                                secret.setRevealed(!secret.revealed);
+                                onRevealChange();
+                            });
+                            secret.setRevealed = revealed => {
+                                secret.revealed = revealed;
+                                valueSpan.textContent = revealed ? display : MASK;
+                                valueSpan.classList.toggle('masked', !revealed);
+                                const label = revealed ? text.hideValue : text.showValue;
+                                eye.innerHTML = revealed ? ICONS.eyeClosed : ICONS.eye;
+                                eye.title = label;
+                                eye.setAttribute('aria-label', label);
+                            };
+                            secret.setRevealed(false);
+                            secrets.push(secret);
+
+                            const copy = iconButton(ICONS.copy, text.copyValue, () => {
+                                copyText(raw);
+                                copy.innerHTML = ICONS.check;
+                                copy.classList.add('copied');
+                                copy.title = text.copied;
+                                setTimeout(() => {
+                                    copy.innerHTML = ICONS.copy;
+                                    copy.classList.remove('copied');
+                                    copy.title = text.copyValue;
+                                }, 1500);
+                            });
+                            const actions = document.createElement('span');
+                            actions.className = 'line-actions';
+                            actions.append(eye, copy);
+                            addLine(depth, [...prefix, valueSpan, ...comma, actions]);
+                        }
+
+                        walk(root, 0, undefined, true);
                     }
 
                     window.addEventListener('message', event => {
                         const message = event.data;
                         if (message.command === 'applications') showApplications(message.applications);
                         if (message.command === 'environments') showEnvironments(message.project);
-                        if (message.command === 'values') showValues(message.project, message.env, message.values);
+                        if (message.command === 'values') showValues(message.project, message.env, message.values, message.data);
                     });
                     window.onload = () => vscode.postMessage({ command: 'getApplications' });
                 </script>
             </body></html>`;
 
         panel.webview.onDidReceiveMessage(async message => {
+            if (message.command === 'copyToClipboard' && typeof message.text === 'string') {
+                await vscode.env.clipboard.writeText(message.text);
+                vscode.window.setStatusBarMessage(`$(check) ${t('copied')}`, 2000);
+                return;
+            }
+            if (message.command === 'deleteEnvironment' || message.command === 'activateEnvironment') {
+                stores = getConfiguredSecretsStores();
+                const store = stores.find(candidate => candidate.id === message.id);
+                if (!store) {
+                    return;
+                }
+                const changed = message.command === 'activateEnvironment'
+                    ? activateStoreEnvironment(store, message.env)
+                    : await deleteEnvironmentFile(store.directory, message.env, store.activeEnv, store.environments);
+                if (!changed) {
+                    return;
+                }
+                stores = getConfiguredSecretsStores();
+                const updated = stores.find(candidate => candidate.id === message.id);
+                if (!updated) {
+                    return;
+                }
+                panel.webview.postMessage({
+                    command: 'environments',
+                    project: {
+                        id: updated.id,
+                        name: updated.name,
+                        activeEnv: updated.activeEnv,
+                        environments: updated.environments
+                    }
+                });
+            }
             if (message.command === 'renameApplication') {
                 const store = stores.find(candidate => candidate.id === message.id);
                 if (!store) {
@@ -302,11 +587,13 @@ export function activate(context: vscode.ExtensionContext) {
                 const store = stores.find(candidate => candidate.id === message.id);
                 if (!store || !store.environments.includes(message.env)) return;
                 try {
+                    const { text, data } = getEnvironmentValues(store, message.env);
                     panel.webview.postMessage({
                         command: 'values',
                         project: { id: store.id, name: store.name },
                         env: message.env,
-                        values: getEnvironmentValues(store, message.env)
+                        values: text,
+                        data
                     });
                 } catch (e) {
                     vscode.window.showErrorMessage(t('secretsReadFailed'));
@@ -476,6 +763,18 @@ export function activate(context: vscode.ExtensionContext) {
                     );
                     sendDataToWebview(panel, createdEnv ?? message.env, !createdEnv, createdEnv ? 'detail' : 'create');
                     updateStatusBar();
+                    break;
+                case 'deleteEnv':
+                    void deleteEnvironmentFile(
+                        secretsDirectory,
+                        message.env,
+                        getActiveConfig().env,
+                        getAvailableEnvironments()
+                    ).then(deleted => {
+                        if (deleted) {
+                            sendDataToWebview(panel, undefined, false, 'list');
+                        }
+                    });
                     break;
                 case 'confirmNavigation':
                     void confirmPendingNavigation(panel, message);
@@ -697,7 +996,7 @@ export function activate(context: vscode.ExtensionContext) {
                 .active-banner { margin: 4px 0; white-space: nowrap; }
                 .breadcrumb { color: var(--vscode-descriptionForeground); margin: 8px 0 20px; }
                 .breadcrumb-separator { padding: 0 6px; }
-                input, select, button, textarea { background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border); padding: 8px; margin-top: 6px; border-radius: 4px; box-sizing: border-box; }
+                input, select, button, textarea { background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border); padding: 8px; margin-top: 6px; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: inherit; }
                 input, select, textarea { width: 100%; }
                 button { background: var(--vscode-button-background); color: var(--vscode-button-foreground); border: none; cursor: pointer; font-weight: 600; }
                 button:hover { background: var(--vscode-button-hoverBackground); }
@@ -717,6 +1016,8 @@ export function activate(context: vscode.ExtensionContext) {
                 .detail-toolbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--vscode-panel-border); background: var(--vscode-editor-background); }
                 .detail-actions { display: flex; gap: 8px; }
                 .detail-toolbar button { width: auto; margin: 0; }
+                .danger-action { background: transparent; color: var(--vscode-errorForeground); border: 1px solid var(--vscode-errorForeground); }
+                .danger-action:hover { background: var(--vscode-inputValidation-errorBackground); }
                 .primary-action { background: var(--vscode-button-prominent-background); color: var(--vscode-button-prominent-foreground); }
                 .project-settings { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--vscode-panel-border); }
                 .project-settings summary { cursor: pointer; color: var(--vscode-textLink-foreground); }
@@ -912,6 +1213,13 @@ export function activate(context: vscode.ExtensionContext) {
                             activateButton.textContent = text.pinAsActive;
                             activateButton.addEventListener('click', () => pinEnv(env, 'list'));
                             actions.appendChild(activateButton);
+                            if (state.availableEnvs.length > 1) {
+                                const deleteButton = document.createElement('button');
+                                deleteButton.className = 'danger-action';
+                                deleteButton.textContent = text.deleteEnvironment;
+                                deleteButton.addEventListener('click', () => vscode.postMessage({ command: 'deleteEnv', env }));
+                                actions.appendChild(deleteButton);
+                            }
                         }
                         row.appendChild(actions);
                         list.appendChild(row);

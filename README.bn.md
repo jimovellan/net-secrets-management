@@ -26,7 +26,8 @@
 - **প্রতি প্রজেক্টে একাধিক এনভায়রনমেন্ট**: প্রতিটি এনভায়রনমেন্ট `secrets.<এনভায়রনমেন্ট>.json` হিসেবে .NET-এর ব্যবহৃত `secrets.json`-এর পাশে সংরক্ষিত হয়।
 - **এক ক্লিকে সক্রিয়করণ**: সক্রিয় এনভায়রনমেন্ট `secrets.json`-এ কপি হয়, তাই কোড না বদলেই `dotnet run` সেটি ব্যবহার করে।
 - **বিল্ট-ইন JSON এডিটর**: যাচাই, সংরক্ষণ না করা পরিবর্তন হারানো থেকে সুরক্ষা, এবং খালি বা অন্য এনভায়রনমেন্টের কপি থেকে নতুন এনভায়রনমেন্ট তৈরি।
-- **শুধু-পড়ার ব্রাউজার**: মেশিনে User Secrets কনফিগার করা সব অ্যাপ্লিকেশন দেখুন।
+- **এনভায়রনমেন্ট মোছা**: নিশ্চিতকরণসহ। সক্রিয় এনভায়রনমেন্ট এবং প্রজেক্টের শেষ এনভায়রনমেন্ট সুরক্ষিত থাকে।
+- **কনফিগার করা সিক্রেট ব্রাউজার**: মেশিনে User Secrets থাকা সব অ্যাপ্লিকেশনের জন্য। শুধু ID দেখানো প্রজেক্টের নাম বদলান, এনভায়রনমেন্ট সক্রিয় করুন বা মুছুন, এবং মানগুলো রঙিন JSON হিসেবে দেখুন — ডিফল্টভাবে লুকানো, প্রতিটি মান বা পুরো JSON কপি করার বোতামসহ।
 - **১০টি ইন্টারফেস ভাষা**: English, 简体中文, हिन्दी, Español, Français, العربية, বাংলা, Português (Brasil), Русский এবং اردو (ডান থেকে বাম লেআউটসহ)।
 
 ## স্ক্রিনশট
@@ -47,12 +48,28 @@
   <img alt="সিক্রেট এডিটর" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
-**কনফিগার করা সিক্রেট ব্রাউজার:** স্ট্যাটাস বার থেকে খোলে এবং মেশিনের সব অ্যাপ্লিকেশন দেখায়।
+**কনফিগার করা সিক্রেট ব্রাউজার:** স্ট্যাটাস বার থেকে খোলে এবং মেশিনের সব অ্যাপ্লিকেশন দেখায়। শুধু ID দেখানো প্রজেক্টের নাম বদলানো যায়।
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
   <img alt="কনফিগার করা সিক্রেট ব্রাউজার" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+</picture>
+
+**একটি অ্যাপ্লিকেশনের এনভায়রনমেন্ট:** প্রজেক্ট না খুলেই যেকোনো এনভায়রনমেন্ট সক্রিয় করুন বা মুছুন।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+  <img alt="ব্রাউজারে এনভায়রনমেন্ট" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+</picture>
+
+**সিক্রেট ভিউ:** রঙিন JSON, মান ডিফল্টভাবে লুকানো; প্রতিটি মান দেখান বা কপি করুন, অথবা পুরো JSON কপি করুন।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
+  <img alt="সিক্রেট ভিউ" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
 </picture>
 
 > স্ক্রিনশটে ইংরেজি ইন্টারফেস দেখানো হয়েছে। `net-secrets-manager.language` সেটিং দিয়ে ভাষা বদলান।
@@ -75,7 +92,7 @@ dotnet user-secrets init
 4. JSON সম্পাদনা করতে **দেখুন** এবং সংরক্ষণ করতে **পরিবর্তন সংরক্ষণ করুন**-এ ক্লিক করুন।
 5. .NET যেন সেই এনভায়রনমেন্ট ব্যবহার করে, সেজন্য **সক্রিয় হিসেবে সেট করুন**-এ ক্লিক করুন।
 
-সব অ্যাপ্লিকেশনের সিক্রেট দেখতে স্ট্যাটাস বারে **🔑 .NET সিক্রেট ও এনভায়রনমেন্ট ম্যানেজার**-এ ক্লিক করুন অথবা **কনফিগার করা সিক্রেট দেখুন** কমান্ড চালান।
+সব অ্যাপ্লিকেশন নিয়ে কাজ করতে স্ট্যাটাস বারে **🔑 .NET সিক্রেট ও এনভায়রনমেন্ট ম্যানেজার** ক্লিক করুন অথবা **কনফিগার করা সিক্রেট দেখুন** চালান। সেখান থেকে প্রজেক্টের **নাম পরিবর্তন** করতে, এনভায়রনমেন্ট **সক্রিয় হিসেবে সেট করুন** বা **মুছুন**, এবং সিক্রেট দেখাতে ও কপি করতে **মান দেখুন** খুলতে পারবেন।
 
 ## উদাহরণ
 
@@ -150,7 +167,7 @@ var issuer = builder.Configuration["Jwt:Issuer"];
 | কমান্ড | কোথায় | কী করে |
 | --- | --- | --- |
 | **.NET সিক্রেট ম্যানেজার খুলুন** | `.csproj`-এর কনটেক্সট মেনু, Command Palette | সেই প্রজেক্টের এনভায়রনমেন্ট ম্যানেজার খোলে। |
-| **কনফিগার করা সিক্রেট দেখুন** | স্ট্যাটাস বার, Command Palette | অ্যাপ্লিকেশন, এনভায়রনমেন্ট ও মানের শুধু-পড়ার তালিকা। |
+| **কনফিগার করা সিক্রেট দেখুন** | স্ট্যাটাস বার, Command Palette | অ্যাপ্লিকেশন ও এনভায়রনমেন্টের তালিকা: প্রজেক্টের নাম বদলান, এনভায়রনমেন্ট সক্রিয় করুন বা মুছুন, এবং মান দেখুন বা কপি করুন। |
 
 ## এটি কীভাবে কাজ করে
 
@@ -159,6 +176,8 @@ var issuer = builder.Configuration["Jwt:Issuer"];
   - Linux ও macOS: `~/.microsoft/usersecrets/<UserSecretsId>/`
 - **সিঙ্ক**: সক্রিয় এনভায়রনমেন্ট সংরক্ষণ করলে `secrets.json`-ও আপডেট হয়। VS Code-এ সরাসরি `secrets.json` সম্পাদনা করে সংরক্ষণ করলে পরিবর্তনগুলো সক্রিয় এনভায়রনমেন্টে ফিরে কপি হয়।
 - **নাম**: এনভায়রনমেন্টের নামে শুধু অক্ষর, সংখ্যা, হাইফেন ও আন্ডারস্কোর চলে, এবং ছোট হাতের অক্ষরে সংরক্ষিত হয়।
+- **মোছা**: নিশ্চিত করার পর এনভায়রনমেন্ট মুছলে তার `secrets.<এনভায়রনমেন্ট>.json` মুছে যায়। সক্রিয় এনভায়রনমেন্ট মোছা যায় না (আগে অন্যটি সক্রিয় করুন), প্রজেক্টের শেষ এনভায়রনমেন্টও না।
+- **প্রদর্শিত নাম**: প্রজেক্টের নাম বদলালে শুধু `.active-env`-এ `projectName` সংরক্ষিত হয়; সিক্রেট ফাইল বদলায় না।
 - **মাইগ্রেশন**: প্রজেক্ট ফোল্ডারে `.active-env`, `secrets.json` বা `secrets.*.json` ফাইল থাকলে সেগুলো User Secrets স্টোরে সরানো হয়। বিদ্যমান ফাইল কখনো ওভাররাইট হয় না; সেক্ষেত্রে একটি সতর্কবার্তা দেখানো হয়।
 
 ## নিরাপত্তা

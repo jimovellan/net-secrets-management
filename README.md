@@ -26,7 +26,8 @@ A VS Code extension for keeping several **environments** (develop, qa, staging�
 - **Multiple environments per project**: each one is stored as `secrets.<environment>.json` next to the `secrets.json` used by .NET.
 - **One-click activation**: the active environment is copied to `secrets.json`, so `dotnet run` picks it up with no code changes.
 - **Built-in JSON editor** with validation, protection against losing unsaved changes, and environment creation from scratch or from a copy.
-- **Read-only browser** for every application that has User Secrets configured on the machine.
+- **Environment deletion** with confirmation. The active environment and a project's last environment are protected.
+- **Configured secrets browser** for every application with User Secrets on the machine: rename projects that only show their ID, activate or delete environments, and view values as colored JSON, hidden by default, with buttons to copy each value or the whole JSON.
 - **10 UI languages**: English, 简体中文, हिन्दी, Español, Français, العربية, বাংলা, Português (Brasil), Русский and اردو (with right-to-left layout).
 
 ## Screenshots
@@ -47,12 +48,28 @@ A VS Code extension for keeping several **environments** (develop, qa, staging�
   <img alt="Secrets editor" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
-**Configured secrets browser:** opened from the status bar, it lists every application on the machine.
+**Configured secrets browser:** opened from the status bar, it lists every application on the machine. Projects that only show their ID can be renamed.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
   <img alt="Configured secrets browser" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+</picture>
+
+**Environments of an application:** activate or delete any environment without opening its project.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+  <img alt="Environments in the browser" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+</picture>
+
+**Secrets view:** colored JSON with values hidden by default; reveal or copy each value, or copy the whole JSON.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
+  <img alt="Secrets view" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
 </picture>
 
 ## Requirements
@@ -73,7 +90,7 @@ dotnet user-secrets init
 4. Click **View** to edit the JSON and **Save changes** to save it.
 5. Click **Set as active** to make .NET use that environment.
 
-To browse the secrets of every application, click **🔑 .NET Secrets and Environments** in the status bar or run **Browse configured secrets**.
+To work with every application, click **🔑 .NET Secrets and Environments** in the status bar or run **Browse configured secrets**. There you can **Rename** a project, **Set as active** or **Delete** an environment, and open **View values** to reveal and copy secrets.
 
 ## Example
 
@@ -148,7 +165,7 @@ When you activate `staging`, `secrets.json` gets its content, and the next `dotn
 | Command | Where | What it does |
 | --- | --- | --- |
 | **Open .NET secrets manager** | `.csproj` context menu, Command Palette | Opens the environment manager for that project. |
-| **Browse configured secrets** | Status bar, Command Palette | Read-only list of applications, environments and values. |
+| **Browse configured secrets** | Status bar, Command Palette | Lists applications and environments: rename projects, activate or delete environments, and view or copy values. |
 
 ## How it works
 
@@ -157,6 +174,8 @@ When you activate `staging`, `secrets.json` gets its content, and the next `dotn
   - Linux and macOS: `~/.microsoft/usersecrets/<UserSecretsId>/`
 - **Sync**: when you save the active environment, `secrets.json` is updated too. If you edit `secrets.json` directly in VS Code and save it, the changes are copied back to the active environment.
 - **Names**: environments only accept letters, numbers, hyphens and underscores, and are saved in lowercase.
+- **Deletion**: deleting an environment removes its `secrets.<environment>.json` after confirmation. The active environment cannot be deleted (activate another one first), and neither can a project's last environment.
+- **Display name**: renaming a project only saves `projectName` in `.active-env`; secrets files are not changed.
 - **Migration**: if `.active-env`, `secrets.json` or `secrets.*.json` files exist in the project folder, they are moved to the User Secrets store. Existing files are never overwritten; a warning is shown instead.
 
 ## Security

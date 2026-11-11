@@ -26,7 +26,8 @@
 - **Несколько сред на проект**: каждая хранится в файле `secrets.<среда>.json` рядом с `secrets.json`, который использует .NET.
 - **Активация одним щелчком**: активная среда копируется в `secrets.json`, и `dotnet run` использует её без изменения кода.
 - **Встроенный редактор JSON** с проверкой, защитой от потери несохранённых изменений и созданием пустых сред или копий других сред.
-- **Просмотр только для чтения** всех приложений на компьютере, для которых настроены User Secrets.
+- **Удаление сред** с подтверждением. Активная среда и последняя среда проекта защищены.
+- **Обозреватель настроенных секретов** для всех приложений на компьютере с User Secrets: переименовывайте проекты, у которых виден только идентификатор, активируйте или удаляйте среды и просматривайте значения в цветном JSON — по умолчанию скрытые, с кнопками копирования отдельного значения или всего JSON.
 - **10 языков интерфейса**: English, 简体中文, हिन्दी, Español, Français, العربية, বাংলা, Português (Brasil), Русский и اردو (с раскладкой справа налево).
 
 ## Скриншоты
@@ -47,12 +48,28 @@
   <img alt="Редактор секретов" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
-**Просмотр настроенных секретов:** открывается из строки состояния и показывает все приложения на компьютере.
+**Просмотр настроенных секретов:** открывается из строки состояния и показывает все приложения на компьютере. Проекты, у которых виден только идентификатор, можно переименовать.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
   <img alt="Просмотр настроенных секретов" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+</picture>
+
+**Среды приложения:** активируйте или удаляйте любую среду, не открывая проект.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+  <img alt="Среды в обозревателе" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+</picture>
+
+**Просмотр секретов:** цветной JSON со скрытыми по умолчанию значениями; раскройте или скопируйте каждое значение либо весь JSON.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
+  <img alt="Просмотр секретов" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
 </picture>
 
 > На скриншотах показан интерфейс на английском. Язык меняется параметром `net-secrets-manager.language`.
@@ -75,7 +92,7 @@ dotnet user-secrets init
 4. Нажмите **Открыть**, чтобы отредактировать JSON, и **Сохранить изменения**, чтобы сохранить его.
 5. Нажмите **Сделать активной**, чтобы .NET использовал эту среду.
 
-Чтобы просмотреть секреты всех приложений, нажмите **🔑 Менеджер секретов и сред .NET** в строке состояния или выполните **Просмотреть настроенные секреты**.
+Чтобы работать со всеми приложениями, нажмите **🔑 Менеджер секретов и сред .NET** в строке состояния или выполните **Просмотреть настроенные секреты**. Там можно **Переименовать** проект, **Сделать активной** или **Удалить** среду и открыть **Показать значения**, чтобы раскрыть и скопировать секреты.
 
 ## Пример
 
@@ -150,7 +167,7 @@ var issuer = builder.Configuration["Jwt:Issuer"];
 | Команда | Где | Что делает |
 | --- | --- | --- |
 | **Открыть менеджер секретов .NET** | Контекстное меню `.csproj`, палитра команд | Открывает менеджер сред проекта. |
-| **Просмотреть настроенные секреты** | Строка состояния, палитра команд | Список приложений, сред и значений только для чтения. |
+| **Просмотреть настроенные секреты** | Строка состояния, палитра команд | Список приложений и сред: переименование проектов, активация и удаление сред, просмотр и копирование значений. |
 
 ## Как это работает
 
@@ -159,6 +176,8 @@ var issuer = builder.Configuration["Jwt:Issuer"];
   - Linux и macOS: `~/.microsoft/usersecrets/<UserSecretsId>/`
 - **Синхронизация**: при сохранении активной среды обновляется и `secrets.json`. Если отредактировать и сохранить `secrets.json` прямо в VS Code, изменения копируются обратно в активную среду.
 - **Имена**: имена сред могут содержать только буквы, цифры, дефисы и подчёркивания и сохраняются в нижнем регистре.
+- **Удаление**: после подтверждения удаляется файл `secrets.<среда>.json`. Нельзя удалить активную среду (сначала активируйте другую) и последнюю среду проекта.
+- **Отображаемое имя**: при переименовании проекта в `.active-env` сохраняется только `projectName`; файлы секретов не изменяются.
 - **Миграция**: файлы `.active-env`, `secrets.json` или `secrets.*.json` из папки проекта переносятся в хранилище User Secrets. Существующие файлы никогда не перезаписываются — вместо этого показывается предупреждение.
 
 ## Безопасность

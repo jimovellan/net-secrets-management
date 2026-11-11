@@ -26,7 +26,8 @@
 - **每个项目多个环境**：每个环境保存为 `secrets.<环境>.json`，与 .NET 使用的 `secrets.json` 放在同一目录。
 - **一键启用**：活动环境会被复制到 `secrets.json`，`dotnet run` 无需修改代码即可使用。
 - **内置 JSON 编辑器**：支持校验、防止丢失未保存的更改，并可从空白或复制其他环境来创建新环境。
-- **只读浏览器**：查看本机所有已配置 User Secrets 的应用。
+- **删除环境**：删除前需要确认。活动环境和项目的最后一个环境受到保护。
+- **已配置密钥浏览器**：查看本机所有配置了 User Secrets 的应用；可重命名只显示 ID 的项目、启用或删除环境，并以彩色 JSON 查看值（默认隐藏），可复制单个值或整个 JSON。
 - **10 种界面语言**：English、简体中文、हिन्दी、Español、Français、العربية、বাংলা、Português (Brasil)、Русский 和 اردو（支持从右到左布局）。
 
 ## 截图
@@ -47,12 +48,28 @@
   <img alt="密钥编辑器" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
-**已配置密钥浏览器：** 从状态栏打开，列出本机的所有应用。
+**已配置密钥浏览器：** 从状态栏打开，列出本机的所有应用。 只显示 ID 的项目可以重命名。
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
   <img alt="已配置密钥浏览器" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+</picture>
+
+**应用的环境：** 无需打开项目即可启用或删除任意环境。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+  <img alt="浏览器中的环境" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-environments-light.png">
+</picture>
+
+**密钥视图：** 彩色 JSON，值默认隐藏；可显示或复制单个值，也可复制整个 JSON。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
+  <img alt="密钥视图" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/secrets-light.png">
 </picture>
 
 > 截图显示的是英文界面。可通过 `net-secrets-manager.language` 设置更改语言。
@@ -75,7 +92,7 @@ dotnet user-secrets init
 4. 单击 **查看** 编辑 JSON，然后单击 **保存更改**。
 5. 单击 **设为活动环境**，让 .NET 使用该环境。
 
-要浏览所有应用的密钥，请单击状态栏中的 **🔑 .NET 密钥和环境**，或运行 **浏览已配置的密钥**。
+要管理所有应用，请单击状态栏中的 **🔑 .NET 密钥和环境** 或运行 **浏览已配置的密钥**。在其中可以 **重命名** 项目，**设为活动环境** 或 **删除** 环境，并打开 **查看密钥值** 来显示和复制密钥。
 
 ## 示例
 
@@ -150,7 +167,7 @@ var issuer = builder.Configuration["Jwt:Issuer"];
 | 命令 | 位置 | 作用 |
 | --- | --- | --- |
 | **打开 .NET 密钥管理器** | `.csproj` 上下文菜单、命令面板 | 打开该项目的环境管理器。 |
-| **浏览已配置的密钥** | 状态栏、命令面板 | 只读查看应用、环境和值。 |
+| **浏览已配置的密钥** | 状态栏、命令面板 | 列出应用和环境：重命名项目、启用或删除环境，以及查看或复制值。 |
 
 ## 工作原理
 
@@ -159,6 +176,8 @@ var issuer = builder.Configuration["Jwt:Issuer"];
   - Linux 和 macOS：`~/.microsoft/usersecrets/<UserSecretsId>/`
 - **同步**：保存活动环境时也会更新 `secrets.json`。如果在 VS Code 中直接编辑并保存 `secrets.json`，更改会复制回活动环境。
 - **名称**：环境名称只能包含字母、数字、连字符和下划线，并以小写形式保存。
+- **删除**：确认后删除环境会移除其 `secrets.<环境>.json`。无法删除活动环境（请先启用其他环境），也无法删除项目的最后一个环境。
+- **显示名称**：重命名项目只会在 `.active-env` 中保存 `projectName`，不会修改密钥文件。
 - **迁移**：如果项目目录中存在 `.active-env`、`secrets.json` 或 `secrets.*.json` 文件，它们会被移动到 User Secrets 存储中。现有文件绝不会被覆盖，此时会显示警告。
 
 ## 安全
