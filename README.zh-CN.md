@@ -1,22 +1,22 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="images/logo-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="images/logo-light.png">
-    <img alt=".NET Secrets Manager" src="images/logo-light.png" width="520">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-light.png">
+    <img alt=".NET Secrets Manager" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-light.png" width="520">
   </picture>
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> ·
-  <a href="README.es.md">Español</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.md">English</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.es.md">Español</a> ·
   <b>简体中文</b> ·
-  <a href="README.hi.md">हिन्दी</a> ·
-  <a href="README.fr.md">Français</a> ·
-  <a href="README.ar.md">العربية</a> ·
-  <a href="README.bn.md">বাংলা</a> ·
-  <a href="README.pt-BR.md">Português (Brasil)</a> ·
-  <a href="README.ru.md">Русский</a> ·
-  <a href="README.ur.md">اردو</a>
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.hi.md">हिन्दी</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.fr.md">Français</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ar.md">العربية</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.bn.md">বাংলা</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.pt-BR.md">Português (Brasil)</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ru.md">Русский</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ur.md">اردو</a>
 </p>
 
 一个 VS Code 扩展，可为每个项目维护多个 [.NET User Secrets](https://learn.microsoft.com/aspnet/core/security/app-secrets) **环境**（develop、qa、staging……），并一键切换。
@@ -34,25 +34,25 @@
 **环境列表：** 活动环境会被标记，其他环境可直接在列表中启用。
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/environments-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/environments-light.png">
-  <img alt="环境列表" src="images/environments-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-light.png">
+  <img alt="环境列表" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-light.png">
 </picture>
 
 **密钥编辑器：** 编辑某个环境的 JSON，而无需启用它。
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/editor-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/editor-light.png">
-  <img alt="密钥编辑器" src="images/editor-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
+  <img alt="密钥编辑器" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
 **已配置密钥浏览器：** 从状态栏打开，列出本机的所有应用。
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/browser-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/browser-light.png">
-  <img alt="已配置密钥浏览器" src="images/browser-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+  <img alt="已配置密钥浏览器" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
 </picture>
 
 > 截图显示的是英文界面。可通过 `net-secrets-manager.language` 设置更改语言。

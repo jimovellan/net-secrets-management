@@ -541,7 +541,11 @@ const browserEnglish = {
     loadingSecrets: 'Loading values…',
     secretsViewerTitle: '{project} — {env} secrets',
     secretsReadOnly: 'Read-only view. Values are not modified.',
-    secretsReadFailed: 'Could not read the selected secrets file.'
+    secretsReadFailed: 'Could not read the selected secrets file.',
+    renameProject: 'Rename',
+    renameProjectPrompt: 'New name for project {id}',
+    projectNameUpdateFailed: 'Could not update the project name.',
+    projectNameRequired: 'The project name cannot be empty.'
 } as const;
 
 const browserTranslations: Record<Language, BrowserMessages> = {
@@ -558,7 +562,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: '正在加载密钥值…',
         secretsViewerTitle: '{project} — {env} 密钥',
         secretsReadOnly: '只读视图，不会修改任何值。',
-        secretsReadFailed: '无法读取所选密钥文件。'
+        secretsReadFailed: '无法读取所选密钥文件。',
+        renameProject: '重命名',
+        renameProjectPrompt: '项目 {id} 的新名称',
+        projectNameUpdateFailed: '无法更新项目名称。',
+        projectNameRequired: '项目名称不能为空。'
     },
     hi: {
         browseSecretsTitle: 'कॉन्फ़िगर किए गए सीक्रेट देखें',
@@ -572,7 +580,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'सीक्रेट लोड हो रहे हैं…',
         secretsViewerTitle: '{project} — {env} सीक्रेट',
         secretsReadOnly: 'केवल पढ़ने का दृश्य। मानों में बदलाव नहीं होगा।',
-        secretsReadFailed: 'चुनी गई सीक्रेट फ़ाइल नहीं पढ़ी जा सकी।'
+        secretsReadFailed: 'चुनी गई सीक्रेट फ़ाइल नहीं पढ़ी जा सकी।',
+        renameProject: 'नाम बदलें',
+        renameProjectPrompt: 'प्रोजेक्ट {id} के लिए नया नाम',
+        projectNameUpdateFailed: 'प्रोजेक्ट का नाम अपडेट नहीं किया जा सका।',
+        projectNameRequired: 'प्रोजेक्ट का नाम खाली नहीं हो सकता।'
     },
     es: {
         browseSecretsTitle: 'Explorar secretos configurados',
@@ -586,7 +598,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'Cargando valores…',
         secretsViewerTitle: 'Secretos de {project} — {env}',
         secretsReadOnly: 'Vista de solo lectura. Los valores no se modifican.',
-        secretsReadFailed: 'No se pudo leer el archivo de secretos seleccionado.'
+        secretsReadFailed: 'No se pudo leer el archivo de secretos seleccionado.',
+        renameProject: 'Renombrar',
+        renameProjectPrompt: 'Nuevo nombre para el proyecto {id}',
+        projectNameUpdateFailed: 'No se pudo actualizar el nombre del proyecto.',
+        projectNameRequired: 'El nombre del proyecto no puede estar vacío.'
     },
     fr: {
         browseSecretsTitle: 'Parcourir les secrets configurés',
@@ -600,7 +616,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'Chargement des valeurs…',
         secretsViewerTitle: 'Secrets de {project} — {env}',
         secretsReadOnly: 'Vue en lecture seule. Les valeurs ne sont pas modifiées.',
-        secretsReadFailed: 'Impossible de lire le fichier de secrets sélectionné.'
+        secretsReadFailed: 'Impossible de lire le fichier de secrets sélectionné.',
+        renameProject: 'Renommer',
+        renameProjectPrompt: 'Nouveau nom pour le projet {id}',
+        projectNameUpdateFailed: 'Impossible de mettre à jour le nom du projet.',
+        projectNameRequired: 'Le nom du projet ne peut pas être vide.'
     },
     ar: {
         browseSecretsTitle: 'استعراض الأسرار المُعدّة',
@@ -614,7 +634,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'جارٍ تحميل القيم…',
         secretsViewerTitle: 'أسرار {project} — {env}',
         secretsReadOnly: 'عرض للقراءة فقط. لن يتم تعديل القيم.',
-        secretsReadFailed: 'تعذّرت قراءة ملف الأسرار المحدد.'
+        secretsReadFailed: 'تعذّرت قراءة ملف الأسرار المحدد.',
+        renameProject: 'إعادة التسمية',
+        renameProjectPrompt: 'الاسم الجديد للمشروع {id}',
+        projectNameUpdateFailed: 'تعذر تحديث اسم المشروع.',
+        projectNameRequired: 'لا يمكن أن يكون اسم المشروع فارغًا.'
     },
     bn: {
         browseSecretsTitle: 'কনফিগার করা সিক্রেট দেখুন',
@@ -628,7 +652,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'মান লোড হচ্ছে…',
         secretsViewerTitle: '{project} — {env} সিক্রেট',
         secretsReadOnly: 'শুধু দেখার জন্য। মান পরিবর্তন করা হবে না।',
-        secretsReadFailed: 'নির্বাচিত সিক্রেট ফাইল পড়া যায়নি।'
+        secretsReadFailed: 'নির্বাচিত সিক্রেট ফাইল পড়া যায়নি।',
+        renameProject: 'নাম পরিবর্তন',
+        renameProjectPrompt: 'প্রকল্প {id}-এর নতুন নাম',
+        projectNameUpdateFailed: 'প্রকল্পের নাম আপডেট করা যায়নি।',
+        projectNameRequired: 'প্রকল্পের নাম খালি রাখা যাবে না।'
     },
     'pt-BR': {
         browseSecretsTitle: 'Explorar segredos configurados',
@@ -642,7 +670,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'Carregando valores…',
         secretsViewerTitle: 'Segredos de {project} — {env}',
         secretsReadOnly: 'Visualização somente leitura. Os valores não serão alterados.',
-        secretsReadFailed: 'Não foi possível ler o arquivo de segredos selecionado.'
+        secretsReadFailed: 'Não foi possível ler o arquivo de segredos selecionado.',
+        renameProject: 'Renomear',
+        renameProjectPrompt: 'Novo nome para o projeto {id}',
+        projectNameUpdateFailed: 'Não foi possível atualizar o nome do projeto.',
+        projectNameRequired: 'O nome do projeto não pode ficar vazio.'
     },
     ru: {
         browseSecretsTitle: 'Просмотреть настроенные секреты',
@@ -656,7 +688,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'Загрузка значений…',
         secretsViewerTitle: 'Секреты {project} — {env}',
         secretsReadOnly: 'Режим только для чтения. Значения не изменяются.',
-        secretsReadFailed: 'Не удалось прочитать выбранный файл секретов.'
+        secretsReadFailed: 'Не удалось прочитать выбранный файл секретов.',
+        renameProject: 'Переименовать',
+        renameProjectPrompt: 'Новое имя для проекта {id}',
+        projectNameUpdateFailed: 'Не удалось изменить имя проекта.',
+        projectNameRequired: 'Имя проекта не может быть пустым.'
     },
     ur: {
         browseSecretsTitle: 'ترتیب شدہ سیکرٹس دیکھیں',
@@ -670,7 +706,11 @@ const browserTranslations: Record<Language, BrowserMessages> = {
         loadingSecrets: 'اقدار لوڈ ہو رہی ہیں…',
         secretsViewerTitle: '{project} — {env} کے سیکرٹس',
         secretsReadOnly: 'صرف پڑھنے کا منظر۔ اقدار تبدیل نہیں ہوں گی۔',
-        secretsReadFailed: 'منتخب کردہ سیکرٹ فائل نہیں پڑھی جا سکی۔'
+        secretsReadFailed: 'منتخب کردہ سیکرٹ فائل نہیں پڑھی جا سکی۔',
+        renameProject: 'نام تبدیل کریں',
+        renameProjectPrompt: 'پروجیکٹ {id} کے لیے نیا نام',
+        projectNameUpdateFailed: 'پروجیکٹ کا نام اپ ڈیٹ نہیں ہو سکا۔',
+        projectNameRequired: 'پروجیکٹ کا نام خالی نہیں ہو سکتا۔'
     }
 };
 

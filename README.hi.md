@@ -1,22 +1,22 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="images/logo-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="images/logo-light.png">
-    <img alt=".NET Secrets Manager" src="images/logo-light.png" width="520">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-light.png">
+    <img alt=".NET Secrets Manager" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-light.png" width="520">
   </picture>
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> ·
-  <a href="README.es.md">Español</a> ·
-  <a href="README.zh-CN.md">简体中文</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.md">English</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.es.md">Español</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.zh-CN.md">简体中文</a> ·
   <b>हिन्दी</b> ·
-  <a href="README.fr.md">Français</a> ·
-  <a href="README.ar.md">العربية</a> ·
-  <a href="README.bn.md">বাংলা</a> ·
-  <a href="README.pt-BR.md">Português (Brasil)</a> ·
-  <a href="README.ru.md">Русский</a> ·
-  <a href="README.ur.md">اردو</a>
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.fr.md">Français</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ar.md">العربية</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.bn.md">বাংলা</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.pt-BR.md">Português (Brasil)</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ru.md">Русский</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ur.md">اردو</a>
 </p>
 
 एक VS Code एक्सटेंशन, जो हर प्रोजेक्ट के लिए [.NET User Secrets](https://learn.microsoft.com/aspnet/core/security/app-secrets) के कई **एनवायरनमेंट** (develop, qa, staging…) रखता है और एक क्लिक में उनके बीच स्विच करने देता है।
@@ -34,25 +34,25 @@
 **एनवायरनमेंट सूची:** सक्रिय एनवायरनमेंट चिह्नित होता है और किसी अन्य को सूची से ही सक्रिय किया जा सकता है।
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/environments-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/environments-light.png">
-  <img alt="एनवायरनमेंट सूची" src="images/environments-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-light.png">
+  <img alt="एनवायरनमेंट सूची" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-light.png">
 </picture>
 
 **सीक्रेट एडिटर:** किसी एनवायरनमेंट को सक्रिय किए बिना उसका JSON संपादित करें।
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/editor-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/editor-light.png">
-  <img alt="सीक्रेट एडिटर" src="images/editor-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
+  <img alt="सीक्रेट एडिटर" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
 **कॉन्फ़िगर किए गए सीक्रेट का ब्राउज़र:** स्टेटस बार से खुलता है और मशीन के सभी एप्लिकेशन दिखाता है।
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/browser-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/browser-light.png">
-  <img alt="कॉन्फ़िगर किए गए सीक्रेट का ब्राउज़र" src="images/browser-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+  <img alt="कॉन्फ़िगर किए गए सीक्रेट का ब्राउज़र" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
 </picture>
 
 > स्क्रीनशॉट अंग्रेज़ी इंटरफ़ेस दिखाते हैं। भाषा `net-secrets-manager.language` सेटिंग से बदलें।

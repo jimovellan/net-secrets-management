@@ -78,8 +78,27 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     // Abre una página con navegación visible: aplicaciones, entornos y valores.
+    // Guarda el nombre visible de una aplicación conservando el resto de su configuración.
+    function renameConfiguredStore(store: ConfiguredSecretsStore, newName: string): boolean {
+        const configFile = path.join(store.directory, '.active-env');
+        let config: Record<string, unknown> = { env: store.activeEnv };
+        try {
+            const existing = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+            if (existing && typeof existing === 'object' && !Array.isArray(existing)) {
+                config = existing;
+            }
+        } catch (e) {}
+        config.projectName = newName;
+        try {
+            fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     function browseConfiguredSecrets() {
-        const stores = getConfiguredSecretsStores();
+        let stores = getConfiguredSecretsStores();
         const language = getLanguage();
         const direction = language === 'ar' || language === 'ur' ? 'rtl' : 'ltr';
         const messages = getMessages(language);
@@ -105,8 +124,11 @@ export function activate(context: vscode.ExtensionContext) {
                 .row button { width: auto; }
                 button { background: var(--vscode-button-background); color: var(--vscode-button-foreground); border: 0; border-radius: 3px; padding: 7px 12px; cursor: pointer; }
                 button:hover { background: var(--vscode-button-hoverBackground); }
+                .actions { display: flex; gap: 8px; flex-shrink: 0; }
+                button.secondary { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+                button.secondary:hover { background: var(--vscode-button-secondaryHoverBackground); }
                 pre { padding: 16px; overflow: auto; white-space: pre-wrap; background: var(--vscode-textCodeBlock-background); font-family: var(--vscode-editor-font-family); }
-                @media (max-width: 520px) { body { padding: 12px; } .row { align-items: stretch; flex-direction: column; } .row button { width: 100%; } }
+                @media (max-width: 520px) { body { padding: 12px; } .row { align-items: stretch; flex-direction: column; } .actions { flex-direction: column; } .row button { width: 100%; } }
             </style></head>
             <body>
                 <h1 id="pageTitle">${messages.applications}</h1>
@@ -144,13 +166,21 @@ export function activate(context: vscode.ExtensionContext) {
                             id.textContent = app.id;
                             info.appendChild(id);
                             row.appendChild(info);
+                            const actions = document.createElement('div');
+                            actions.className = 'actions';
+                            const rename = document.createElement('button');
+                            rename.className = 'secondary';
+                            rename.textContent = text.renameProject;
+                            rename.addEventListener('click', () => vscode.postMessage({ command: 'renameApplication', id: app.id }));
+                            actions.appendChild(rename);
                             const button = document.createElement('button');
                             button.textContent = text.viewEnvironments;
                             button.addEventListener('click', () => {
                                 selectedProject = app;
                                 vscode.postMessage({ command: 'selectApplication', id: app.id });
                             });
-                            row.appendChild(button);
+                            actions.appendChild(button);
+                            row.appendChild(actions);
                             list.appendChild(row);
                         });
                         content.appendChild(list);
@@ -222,7 +252,33 @@ export function activate(context: vscode.ExtensionContext) {
                 </script>
             </body></html>`;
 
-        panel.webview.onDidReceiveMessage(message => {
+        panel.webview.onDidReceiveMessage(async message => {
+            if (message.command === 'renameApplication') {
+                const store = stores.find(candidate => candidate.id === message.id);
+                if (!store) {
+                    return;
+                }
+                const input = await vscode.window.showInputBox({
+                    title: t('renameProject'),
+                    prompt: t('renameProjectPrompt', { id: store.id }),
+                    value: store.name === store.id ? '' : store.name,
+                    validateInput: value => value.trim() ? undefined : t('projectNameRequired')
+                });
+                const newName = input?.trim();
+                if (!newName) {
+                    return;
+                }
+                if (!renameConfiguredStore(store, newName)) {
+                    vscode.window.showErrorMessage(t('projectNameUpdateFailed'));
+                    return;
+                }
+                vscode.window.showInformationMessage(t('projectNameUpdated', { name: newName }));
+                stores = getConfiguredSecretsStores();
+                panel.webview.postMessage({
+                    command: 'applications',
+                    applications: stores.map(({ id, name }) => ({ id, name }))
+                });
+            }
             if (message.command === 'getApplications') {
                 panel.webview.postMessage({
                     command: 'applications',

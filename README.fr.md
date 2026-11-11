@@ -1,22 +1,22 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="images/logo-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="images/logo-light.png">
-    <img alt=".NET Secrets Manager" src="images/logo-light.png" width="520">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-light.png">
+    <img alt=".NET Secrets Manager" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/logo-light.png" width="520">
   </picture>
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> ·
-  <a href="README.es.md">Español</a> ·
-  <a href="README.zh-CN.md">简体中文</a> ·
-  <a href="README.hi.md">हिन्दी</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.md">English</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.es.md">Español</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.zh-CN.md">简体中文</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.hi.md">हिन्दी</a> ·
   <b>Français</b> ·
-  <a href="README.ar.md">العربية</a> ·
-  <a href="README.bn.md">বাংলা</a> ·
-  <a href="README.pt-BR.md">Português (Brasil)</a> ·
-  <a href="README.ru.md">Русский</a> ·
-  <a href="README.ur.md">اردو</a>
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ar.md">العربية</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.bn.md">বাংলা</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.pt-BR.md">Português (Brasil)</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ru.md">Русский</a> ·
+  <a href="https://github.com/jimovellan/net-secrets-management/blob/main/README.ur.md">اردو</a>
 </p>
 
 Extension VS Code permettant de gérer plusieurs **environnements** (develop, qa, staging…) de [.NET User Secrets](https://learn.microsoft.com/aspnet/core/security/app-secrets) par projet et de passer de l’un à l’autre en un clic.
@@ -34,25 +34,25 @@ Extension VS Code permettant de gérer plusieurs **environnements** (develop, qa
 **Liste des environnements :** l’environnement actif est signalé et tout autre peut être activé depuis la liste.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/environments-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/environments-light.png">
-  <img alt="Liste des environnements" src="images/environments-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-light.png">
+  <img alt="Liste des environnements" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/environments-light.png">
 </picture>
 
 **Éditeur de secrets :** modifiez le JSON d’un environnement sans l’activer.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/editor-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/editor-light.png">
-  <img alt="Éditeur de secrets" src="images/editor-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
+  <img alt="Éditeur de secrets" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/editor-light.png">
 </picture>
 
 **Navigateur de secrets configurés :** ouvert depuis la barre d’état, il liste toutes les applications de la machine.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/browser-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="images/browser-light.png">
-  <img alt="Navigateur de secrets configurés" src="images/browser-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
+  <img alt="Navigateur de secrets configurés" src="https://raw.githubusercontent.com/jimovellan/net-secrets-management/main/images/browser-light.png">
 </picture>
 
 > Les captures montrent l’interface en anglais. Changez la langue avec le paramètre `net-secrets-manager.language`.
