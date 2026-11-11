@@ -16,3 +16,5 @@ UserSecretsConsole/**
 **/bin/**
 **/obj/**
 *.vsix
+images/*.svg
+.github/**

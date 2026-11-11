@@ -1,9 +1,25 @@
 {
   "name": "net-secrets-manager",
   "displayName": "%extension.displayName%",
-  "publisher": "local-test",
-  "description": ".net secrets manager",
+  "publisher": "dotnet-secrets-manager",
+  "description": "Manage .NET User Secrets for your projects from VS Code.",
   "version": "0.0.12",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jimovellan/net-secrets-management.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jimovellan/net-secrets-management/issues"
+  },
+  "homepage": "https://github.com/jimovellan/net-secrets-management#readme",
+  "keywords": [
+    ".NET",
+    "dotnet",
+    "user-secrets",
+    "secrets",
+    "csproj"
+  ],
   "engines": {
     "vscode": "^1.142.0"
   },
@@ -83,7 +99,9 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "vsix": "vsce package",
+    "publish:marketplace": "vsce publish"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
@@ -91,6 +109,7 @@
     "@types/vscode": "1.140.0",
     "@vscode/test-cli": "^0.0.15",
     "@vscode/test-electron": "^3.0.0",
+    "@vscode/vsce": "^4.1.0",
     "esbuild": "^0.28.1",
     "eslint": "^10.5.0",
     "npm-run-all": "^4.1.5",
